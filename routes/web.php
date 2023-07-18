@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+
+
 // Route::get('{any}', function () {
 //     return view('index');
 // })->where('any', '.*');
 
+
+// Route::middleware('auth:admin')->get('/user-type', function (Request $request) {
+//     return response()->json([
+//         'type' => 'admin',
+//     ]);
+// });
 Route::get('/', function () {
     return view('welcome');
 });

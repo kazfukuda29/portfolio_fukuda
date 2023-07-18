@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'users',
+        'guard' => 'web',
         'passwords' => 'users',
     ],
 
@@ -41,16 +41,42 @@ return [
             'provider' => 'users',
         ],
         
-        'users' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admin',
-        ],
+       // BypassGuardを追加
+       'users' => [
+        'driver' => 'proxy-sanctum',
+        'session' => 'user-web',
+        'sanctum' => 'user-api',
     ],
+
+    // BypassGuardを追加
+    'admin' => [
+        'driver' => 'proxy-sanctum',
+        'session' => 'admin-web',
+        'sanctum' => 'admin-api',
+    ],
+
+    'user-web' => [
+        'driver' => 'session', // 標準のSessionGuard
+        'provider' => 'users', // 顧客テーブル名
+    ],
+
+    // 名称を変更
+    'user-api' => [
+        'driver' => 'sanctum', // SanctumのGuard
+        'provider' => 'users', // 顧客テーブル
+    ],
+
+    'admin-web' => [
+        'driver' => 'session', // 標準のSessionGuard
+        'provider' => 'admin', // 管理者テーブル
+    ],
+
+    // 名称を変更
+    'admin-api' => [
+        'driver' => 'sanctum', // SanctumのGuard
+        'provider' => 'admin', // 管理者テーブル
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------

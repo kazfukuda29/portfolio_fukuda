@@ -25,7 +25,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        Auth::guard('users')->logout();
+        Auth::guard('user-web')->logout();
 
         $request->session()->invalidate();
 

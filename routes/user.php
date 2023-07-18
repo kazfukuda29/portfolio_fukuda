@@ -11,6 +11,11 @@ use App\Http\Controllers\User\Auth\PasswordController;
 use App\Http\Controllers\User\Auth\PasswordResetLinkController;
 use App\Http\Controllers\User\Auth\RegisteredUserController;
 use App\Http\Controllers\User\Auth\VerifyEmailController;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\User\UserAnnouncementController;
+use App\Http\Controllers\TagController;
+
 
 
 /*
@@ -28,19 +33,19 @@ use App\Http\Controllers\User\Auth\VerifyEmailController;
 //     return view('app');
 // })->where('any', '.*');
 
-
 Route::get('/', function () {
     return view('user.welcome');
 });
 Route::get('/home', function () {
+
     return view('index');
 });
 
 Route::get('/dashboard', function () {
     return view('user.dashboard');
-})->middleware(['auth:users', 'verified'])->name('dashboard');
+})->middleware(['auth:user-web', 'verified'])->name('dashboard');
 
-Route::middleware('auth:users')->group(function () {
+Route::middleware(['auth:user-web'])->group(function () {
     Route::get('/profile', [UserProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [UserProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [UserProfileController::class, 'destroy'])->name('profile.destroy');

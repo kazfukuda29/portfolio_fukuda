@@ -1,35 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { getCsrfCookie } from './api/auth';
-import { UserType, getCurrentUser } from './api/auth';
-import AdminRoutes from './routes/AdminRoutes';
-import UserRoutes from './routes/UserRoutes';
+import axios from 'axios';
+
+
+axios.defaults.withCredentials = true; // cookieを送信するための設定
+
 
 const App: React.FC = () => {
-  const [UserType, setUserType] = useState<UserType | null>(null);
+  const [userType, setUserType] = useState(null);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      await getCsrfCookie();
-      const user = await getCurrentUser();
-      setUserType(user?.type || null);
-    };
-
-    fetchUser();
+    // CSRFトークンを取得
+    axios.get('/sanctum/csrf-cookie').then(() => {
+      // トークン取得後にユーザータイプを取得
+      axios.get('/api/user-type')
+        .then(response => {
+          setUserType(response.data.type);
+          console.log(response.data.type);
+        });
+    });
   }, []);
 
   return (
-    // <Router>
-    //   <Routes>
-    //     {userType === 'admin' && <Route path="/admin/*" element={<AdminRoutes />} />}
-    //     {userType === 'user' && <Route path="/user*" element={<UserRoutes />} />}
-    //     {userType === null && <p>Loading...</p>}
-    //   </Routes>
-    // </Router>
-   <div>test</div>
+    <div>
+      {userType === 'admin' ? (
+        <p>管理者向けのお知らせを表示</p>
+      ) : userType === 'users' ? (
+        <p>一般ユーザー向けのお知らせを表示</p>
+      ) : (
+        <p>ゲストユーザー向けのお知らせを表示</p>
+      )}
+    </div>
   );
-};
+}
 
 export default App;
-
 
