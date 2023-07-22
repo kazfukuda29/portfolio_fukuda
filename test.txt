@@ -1,0 +1,43 @@
+/src
+├── App.tsx
+├── index.tsx
+├── api
+│   ├── auth.ts
+│   ├── axiosInstance.ts
+│   ├── announcements.ts
+│   ├── contact.ts
+│   ├── reservation.ts
+│   └── stripe.ts
+├── components
+│   ├── common
+│   │   ├── Header.tsx
+│   │   ├── Footer.tsx
+│   │   ├── HeroView.tsx
+│   │   └── Swiper.tsx
+│   ├── user
+│   │   ├── Dashboard.tsx
+│   │   ├── AnnouncementList.tsx
+│   │   ├── AnnouncementDetail.tsx
+│   │   ├── ReservationForm.tsx
+│   │   └── ShoppingCart.tsx
+│   └── admin
+│       ├── Dashboard.tsx
+│       ├── AnnouncementForm.tsx
+│       ├── AnnouncementDetail.tsx
+│   │   ├── ReservationForm.tsx
+│       ├── EditAnnouncementForm.tsx
+│       ├── UserList.tsx
+│       └── SalesReport.tsx
+├── routes
+│   ├── UserRoutes.tsx
+│   └── AdminRoutes.tsx
+└── styles
+    ├── common.scss
+    ├── user.scss
+    └── admin.scss
+App.tsx: アプリケーションのルートコンポーネント。
+index.tsx: Reactアプリケーションのエントリーポイント。
+api: APIと通信するための関数を格納。
+components: Reactコンポーネントを格納。機能や役割に基づきフォルダに分けている。
+routes: ルーティングに関する設定を格納。
+styles: スタイルシートを格納
